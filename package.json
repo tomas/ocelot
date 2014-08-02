@@ -1,0 +1,14 @@
+{
+  "name": "ocelot",
+  "version": "0.0.1",
+  "description": "Spawn/exec with impersonation.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tomas Pollak <tomas@forkhq.com>",
+  "license": "MIT",
+  "dependencies": {
+    "which": "^1.0.5"
+  }
+}
