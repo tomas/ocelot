@@ -22,5 +22,5 @@ exports.spawn_as = function(user, bin, args, cb) {
 }
 
 exports.exec_as = function(user, command, cb) {
-  exec(runner + ' ' + command, cb);
+  exec(runner + ' ' + user + ' ' + command, cb);
 }

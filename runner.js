@@ -23,14 +23,21 @@ if (!run_as || !command) {
   process.exit(1);
 }
 
-var debugging = !!process.env.DEBUG,
+var debugging = !!process.env.DEBUG || process.argv.indexOf('-D') !== -1,
     debug     = debugging ? console.log : function() { };
 
 var safe_escape = function(str) {
   return str.replace(/[\"\`\$\|]/g, "\\$&");
 }
 
-var run_command = function(command, args){
+var exit = function(err, code) {
+  if (err && !code) code = 1;
+  setTimeout(function(){
+    process.exit(code);
+  }, 10)
+}
+
+var run_command = function(command, args) {
 
   debug('Running ' + command + ' with uid ' + process.getuid());
   var opts = { env: process.env }
@@ -52,13 +59,13 @@ var run_command = function(command, args){
   })
 
   child.on('error', function(err) {
-    debug('Got error: ' + err.message)
+    console.log('Error running command: ' + err.message);
+    exit(err);
   })
 
   child.on('exit', function(code){
-    setTimeout(function(){
-      process.exit(code);
-    }, 10)
+    debug('Child exited with code ' + code);
+    exit(null, code);
   })
 }
 
@@ -66,6 +73,7 @@ try {
   process.setuid(run_as);
   debug('Switched to uid: ' + process.getuid());
 } catch (err) {
+  debug('Unable to setuid. Falling back to sudo mode. Error was: ' + err.message);
   args = args.map(function(a) { return safe_escape(a) });
   command = ['"' + command].concat(args).join('" "') + '"';
   args = ['-n', 'su', run_as, '-c', command];
