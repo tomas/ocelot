@@ -1,5 +1,5 @@
 var ocelot = require('./');
 
-ocelot.exec_as('prey', 'whoami', function(err, out) {
+ocelot.exec_as('daemon', 'whoami', function(err, out) {
   console.log(err || out);
 })
