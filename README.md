@@ -1,5 +1,6 @@
 Ocelot
 ======
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/tomas/ocelot?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Spawn/exec commands as other users on OS X and Linux, by impersonating them. Like Ocelot.
 
