@@ -23,7 +23,7 @@ exports.spawn_as = function(user, command, args, cb) {
     bin = node;
   }
 
-  var done = function(e) {
+  function done(e) {
     if (out) return;
     out = true;
     cb(e, child);
